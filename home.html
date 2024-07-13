@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+<style>
+    .container {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 100vh;
+    }
+</style>
+
+
+<body>
+    <div
+        class="container h-dvh w-screen mx-auto flex items-center justify-center bg-gray-100 relative lg:w-[400px] lg:shadow">
+        <div class="bg-[#fcfcfc] rounded-lg mx-auto h-full w-full relative">
+            <header class="w-full sticky top-0">
+                <div class="top bg-blue-600 flex items-center p-3 text-white flex justify-between">
+                    <div class="logo">
+                        <a href="home.html">
+                            <img class="w-[60px] h-[100%]" src="./images/content2.png" alt="">
+                        </a>
+                    </div>
+                    <button class="btn bg-transparent border-none hover:bg-transparent shadow-none">
+                        <i class='bx bx-menu text-3xl text-white'></i>
+                    </button>
+                </div>
+            </header>
+            <marquee behavior="" direction="" class="w-full py-2 bg-gray-200">
+                <p class="font-medium text-[red]">Tham gia chương trình nhận ngay 199K - 999K hoặc có cơ hội trúng
+                    Iphone
+                    15 ProMax
+                </p>
+            </marquee>
+            <div class="top-vew w-full">
+                <div class="swiper h-[340px] w-full">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide flex items-center justify-center">
+                            <div class="text-center">
+                                <h1 class="text-6xl font-bold text-blue-600">Zalo</h1>
+                            </div>
+                        </div>
+                        <div class="swiper-slide flex items-center justify-center ">
+                            <div class="swiper-slide-main">
+                                <img class="w-full" src="./images/content1.png" alt="">
+                                <div class="swiper-slide-content w-full "></div>
+                                <p class="text-xl text-bold text-center">Gọi video ổn định</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide flex items-center justify-center ">
+                            <div class="swiper-slide-main">
+                                <img class="w-full" src="./images/content2.png" alt="">
+                                <div class="swiper-slide-content w-full "></div>
+                                <p class="text-xl text-bold text-center">Gọi video ổn định</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide flex items-center justify-center ">
+                            <div class="swiper-slide-main">
+                                <img class="w-full" src="./images/content3.png" alt="">
+                                <div class="swiper-slide-content w-full "></div>
+                                <p class="text-xl text-bold text-center">Gọi video ổn định</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide flex items-center justify-center ">
+                            <div class="swiper-slide-main">
+                                <img class="w-full" src="./images/content4.png" alt="">
+                                <div class="swiper-slide-content w-full "></div>
+                                <p class="text-xl text-bold text-center">Gọi video ổn định</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-control absolute w-full">
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <details className="dropdown">
+                <summary className="btn m-1">open or close</summary>
+                <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                    <li><a>Item 1</a></li>
+                    <li><a>Item 2</a></li>
+                </ul>
+            </details>
+            <details className="dropdown">
+                <summary className="btn m-1">open or close</summary>
+                <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                    <li><a>Item 1</a></li>
+                    <li><a>Item 2</a></li>
+                </ul>
+            </details>
+
+            <details className="dropdown">
+                <summary className="btn m-1">open or close</summary>
+                <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                    <li><a>Item 1</a></li>
+                    <li><a>Item 2</a></li>
+                </ul>
+            </details>
+            <details className="dropdown">
+                <summary className="btn m-1">open or close</summary>
+                <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                    <li><a>Item 1</a></li>
+                    <li><a>Item 2</a></li>
+                </ul>
+            </details>
+            <nav class="w-full h-[40px] bg-blue-600 static bottom-0"></nav>
+        </div>
+    </div>
+</body>
+
+
+<script type="module">
+    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
+
+    const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+        },
+
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+
+        // And if we need scrollbar
+        scrollbar: {
+            // el: '.swiper-scrollbar',
+        },
+    });
+</script>
+
+</html>
