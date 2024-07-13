@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiper Example</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+<style>
+    .container {
+        overflow: hidden;
+    }
+
+    input:focus {
+        /* border-bottom: 1px solid blue; */
+    }
+
+    #buttonClear {
+        display: none;
+    }
+</style>
+
+
+<body class=" ">
+    <div
+        class="container h-screen w-screen mx-auto flex items-center justify-center bg-gray-100 py-1 relative lg:w-[400px] lg:shadow">
+        <div class="bg-[#fcfcfc] rounded-lg  mx-auto h-full w-full relative">
+            <header class="w-full sticky top-0">
+                <div class="top bg-blue-600 flex items-center p-3 text-white">
+                    <a href="">
+                        <i class='bx bx-left-arrow-alt text-4xl mr-3'></i>
+                    </a>
+                    <span class="font-medium text-[14px]">Đăng nhập</span>
+                </div>
+                <div class="bottom  bg-gray-200 flex items-center px-5 py-2 text-sm">
+                    <p>Vui lòng nhập số điện thoại và mật khẩu để đăng nhập</p>
+                </div>
+            </header>
+            <form class="form w-full mt-1 px-3">
+                <div class="form-control w-full relative">
+                    <input class="w-full outline-none border-b-[1.8px] py-4 bg-transparent focus:border-sky-400"
+                        onchange="checkValue()" type="text" id="phoneNumber" placeholder="Số điện thoại">
+                    <button type="button" onclick="clearInput()" id="buttonClear"
+                        class="text-gray-400 text-sm absolute right-[20px] top-[50%] translate-y-[-50%]"><i
+                            class='bx bx-x text-[20px]'></i></button>
+                </div>
+                <div class="form-control w-full relative flex items-center mt-1">
+                    <input class="w-full h-full outline-none border-b-[1.8px] py-4 bg-transparent focus:border-sky-400"
+                        type="password" id="passWord" placeholder="Mật khẩu">
+                    <button type="button" onclick="showPass()"
+                        class="text-gray-400 text-sm absolute right-[10px] top-[50%] translate-y-[-50%] font-medium">HIỆN</button>
+                </div>
+                <div class="form-control w-full mt-8">
+                    <a href="" class="text-blue-500 hover:text-blue-600 font-medium text-sm">Lấy lại mật khẩu</a>
+                </div>
+                <button type="submit" class="w-[40px] h-[40px] absolute bottom-5 right-5 bg-blue-600 rounded-[50%]">
+                    <i class='bx bx-right-arrow-alt text-white text-xl'></i>
+                </button>
+            </form>
+
+        </div>
+    </div>
+</body>
+
+<script>
+
+    const checkValue = () => {
+        const phone = document.getElementById("phoneNumber")
+        const buttonClear = document.getElementById("buttonClear");
+
+        if (phone.value !== "") {
+            buttonClear.style.display = "block"
+        } else {
+            buttonClear.style.display = "none"
+        }
+    }
+    const clearInput = () => {
+        const phone = document.getElementById("phoneNumber")
+        if (phone.value !== "") {
+            phone.value = "";
+            checkValue();
+        }
+    }
+    function showPass() {
+        const showPass = document.getElementById("passWord");
+        if (showPass.type === "password") {
+            showPass.type = "text";
+        } else {
+            showPass.type = "password";
+        }
+    }
+
+</script>
+
+</html>
