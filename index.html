@@ -4,11 +4,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <title>Swiper Example</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
 
-<body>
-    home
+</head>
+<style>
+    .container {
+        overflow: hidden;
+    }
+
+    .swiper {
+        /* width: 100vw;
+        height: 70vh; */
+    }
+
+    .swiper {
+        overflow: unset;
+    }
+
+    .swiper-pagination {
+        display: block;
+        margin-bottom: -50px;
+        z-index: 20;
+    }
+</style>
+
+
+<body class=" ">
+    <div
+        class="container h-dvh w-screen mx-auto flex items-center justify-center bg-gray-100 relative lg:w-[400px] lg:shadow">
+        <div class="bg-[#fcfcfc] rounded-lg  mx-auto h-full w-full flex items-center relative">
+            <div
+                class="swiper h-[340px] bg-[url('https://astrasend.ru/local/templates/default/images/house.svg')] bg-cover bg-bottom w-full mb-[30%]">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide flex items-center justify-center">
+                        <div class="text-center">
+                            <h1 class="text-6xl font-bold text-blue-600">Zalo</h1>
+                        </div>
+                    </div>
+                    <div class="swiper-slide flex items-center justify-center ">
+                        <div class="swiper-slide-main">
+                            <img class="w-full" src="./images/content1.png" alt="">
+                            <div class="swiper-slide-content w-full "></div>
+                            <p class="text-xl text-bold text-center">Gọi video ổn định</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide flex items-center justify-center ">
+                        <div class="swiper-slide-main">
+                            <img class="w-full" src="./images/content2.png" alt="">
+                            <div class="swiper-slide-content w-full "></div>
+                            <p class="text-xl text-bold text-center">Gọi video ổn định</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide flex items-center justify-center ">
+                        <div class="swiper-slide-main">
+                            <img class="w-full" src="./images/content3.png" alt="">
+                            <div class="swiper-slide-content w-full "></div>
+                            <p class="text-xl text-bold text-center">Gọi video ổn định</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide flex items-center justify-center ">
+                        <div class="swiper-slide-main">
+                            <img class="w-full" src="./images/content4.png" alt="">
+                            <div class="swiper-slide-content w-full "></div>
+                            <p class="text-xl text-bold text-center">Gọi video ổn định</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-control absolute w-full">
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class=" action-login p-4 absolute w-full bottom-0">
+
+            <a href="login.html"
+                class="border-0 btn bg-blue-600 hover:bg-blue-700 w-full text-white text-md rounded-[25px]">Đăng
+                nhập</a>
+            <button
+                class="border-0 btn bg-gray-200 hover:bg-gray-300 w-full text-black text-md rounded-[25px] mb-2 mt-2">Tạo
+                tài
+                khoản mới</button>
+
+        </div>
+    </div>
 </body>
+
+
+<script type="module">
+    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
+
+    const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+        },
+
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+
+        // And if we need scrollbar
+        scrollbar: {
+            // el: '.swiper-scrollbar',
+        },
+    });
+</script>
 
 </html>
