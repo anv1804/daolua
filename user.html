@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+<style>
+    .container {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 100vh;
+    }
+</style>
+
+
+<body>
+    <div
+        class="container h-dvh w-screen mx-auto flex items-center justify-center bg-gray-100 relative lg:w-[400px] lg:shadow">
+        <div class="bg-[#fcfcfc] rounded-lg mx-auto h-full w-full relative">
+            <header class="w-full sticky top-0">
+                <div class="top bg-blue-600 flex items-center p-3 text-white flex justify-between">
+                    <div class="logo">
+                        <a href="home.html">
+                            <img class="w-[60px] h-[100%]" src="./images/content2.png" alt="">
+                        </a>
+                    </div>
+                    <button class="btn bg-transparent border-none hover:bg-transparent shadow-none">
+                        <i class='bx bx-menu text-3xl text-white'></i>
+                    </button>
+                </div>
+            </header>
+            <marquee behavior="" direction="" class="w-full py-2 bg-gray-200">
+                <p class="font-medium text-[red]">Tham gia chương trình nhận ngay 199K - 999K hoặc có cơ hội trúng
+                    Iphone
+                    15 ProMax
+                </p>
+            </marquee>
+            <div class="overflow-x-auto">
+                <table class="table text-center">
+                    <!-- head -->
+                    <thead>
+                        <tr>
+                            <th>
+                                <label>
+                                    <input type="checkbox" class="checkbox" />
+                                </label>
+                            </th>
+                            <th>Phone & Password</th>
+                            <th>jj</th>
+                            <th>Password</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- row 1 -->
+                        <tr>
+                            <th>
+                                <label>
+                                    <input type="checkbox" class="checkbox" />
+                                </label>
+                            </th>
+                            <td>
+                                <div class="flex items-center box-username">
+                                    <input class="w-full outline-none bg-gray-100 p-2 border text-center rounded-[25px]"
+                                        value="099918899" readonly type="number">
+                                    <div class="action-admin flex mt-2">
+                                        <button class="btn bg-transparent mx-[1px] hover:bg-blue-600">
+                                            <i class='bx bxs-copy text-gray-300 text-xl hover:text-white'></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="flex items-center box-pasword mt-2">
+                                    <input class="w-full outline-none bg-gray-100 p-2 border text-center rounded-[25px]"
+                                        value="abc1234" readonly type="password">
+                                    <div class="action-admin flex">
+                                        <button class="btn bg-transparent mx-[1px] hover:bg-blue-600">
+                                            <i class='bx bxs-show text-gray-300 text-xl hover:text-white'></i>
+                                        </button>
+                                        <button class="btn bg-transparent mx-[1px] hover:bg-blue-600">
+                                            <i class='bx bxs-copy text-gray-300 text-xl hover:text-white'></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="flex">
+                            </td>
+                            <th>
+                                <!-- You can open the modal using ID.showModal() method -->
+                                <button class="btn btn-xs" onclick="my_modal_3.showModal()">Chi tiết</button>
+                                <dialog id="my_modal_3" class="modal">
+                                    <div class="modal-box w-[90vw] mx-auto">
+                                        <form method="dialog">
+                                            <button
+                                                class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                        </form>
+                                        <h3 class="text-lg font-bold">Thời gian đăng nhập</h3>
+                                        <span class="countdown font-mono text-xl py-4">
+                                            <span style="--value:10;"></span>
+                                            :
+                                            <span style="--value:24;"></span>
+                                            :
+                                            <span style="--value:${counter};"></span>
+                                        </span>
+                                        <p class="pb-4">
+                                            Thứ <span>7</span>,
+                                            <span>13</span>/
+                                            <span>7</span>/
+                                            <span>2024</span>
+                                        </p>
+                                    </div>
+                                </dialog>
+                            </th>
+                        </tr>
+                    </tbody>
+                    <!-- foot -->
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Job</th>
+                            <th>Favorite Color</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="btm-nav w-full absolute">
+                <button class="bg-pink-200 text-pink-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    <span class="btm-nav-label">Home</span>
+                </button>
+                <button class="active border-blue-600 bg-blue-200 text-blue-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span class="btm-nav-label">Warnings</span>
+                </button>
+                <button class="bg-teal-200 text-teal-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    <span class="btm-nav-label">Statics</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+
+<script type="module">
+    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
+
+    const swiper = new Swiper('.swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+        },
+
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+
+        // And if we need scrollbar
+        scrollbar: {
+            // el: '.swiper-scrollbar',
+        },
+    });
+</script>
+
+</html>
