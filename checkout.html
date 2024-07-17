@@ -28,6 +28,15 @@
             opacity: 0.5;
             visibility: visible;
         }
+
+        #modal {
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Overlay */
+        }
+
+        #modal .bg-white {
+            /* Modal content styles */
+        }
     </style>
 </head>
 
@@ -106,6 +115,18 @@
                                 <button type="submit"
                                     class="inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md focus:outline-none hover:bg-blue-700 focus:bg-blue-700">Hoàn
                                     thành</button>
+                                <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+                                    <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm mx-auto">
+                                        <p class="text-center text-lg font-semibold mb-4">Thêm hóa đơn thành công</p>
+                                        <p class="text-center text-sm text-gray-600 mb-8">Hệ thống đang xử lý yêu cầu
+                                            của bạn, vui lòng chờ trong ít
+                                            phút.</p>
+                                        <button id="closeModal"
+                                            class="w-full px-4 py-2 bg-blue-600 text-white rounded-md font-semibold hover:bg-blue-700 focus:outline-none">Hoàn
+                                            thành</button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </form>
@@ -175,6 +196,30 @@
         document.getElementById('overlay').addEventListener('click', function () {
             document.getElementById('sidebar').classList.remove('sidebar-open');
             document.getElementById('overlay').classList.remove('overlay-visible');
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('form');
+            const modal = document.getElementById('modal');
+            const closeModalButton = document.getElementById('closeModal');
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent form submission
+                showModal(); // Show modal
+            });
+
+            closeModalButton.addEventListener('click', function () {
+                closeModal(); // Close modal when "Hoàn thành" button inside modal is clicked
+            });
+
+            function showModal() {
+                modal.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden'); // Disable scrolling
+            }
+
+            function closeModal() {
+                modal.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden'); // Enable scrolling
+            }
         });
     </script>
 
