@@ -4,272 +4,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <title>Mobile App UI</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        .sidebar {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 30;
+        }
 
+        .sidebar-open {
+            transform: translateX(0);
+        }
+
+        .overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 20;
+        }
+
+        .overlay-visible {
+            opacity: 0.5;
+            visibility: visible;
+        }
+
+        #modal {
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Overlay */
+        }
+
+        #modal .bg-white {
+            /* Modal content styles */
+        }
+    </style>
 </head>
-<style>
-    .container {
-        overflow-x: hidden;
-        overflow-y: auto;
-        height: 100vh;
-    }
-</style>
 
+<body class="bg-gray-100 h-screen flex flex-col justify-between">
 
-<body>
-    <div
-        class="container h-dvh w-screen mx-auto flex items-center justify-center bg-gray-100 relative lg:w-[400px] lg:shadow">
-        <div class="bg-[#fcfcfc] rounded-lg mx-auto h-full w-full relative">
-            <header class="w-full sticky top-0">
-                <div class="top bg-blue-600 flex items-center p-3 text-white flex justify-between">
-                    <div class="logo">
-                        <a href="home.html">
-                            <img class="w-[60px] h-[100%]" src="./images/content2.png" alt="">
-                        </a>
-                    </div>
-                    <button class="btn bg-transparent border-none hover:bg-transparent shadow-none">
-                        <i class='bx bx-menu text-3xl text-white'></i>
-                    </button>
-                </div>
-            </header>
-            <marquee behavior="" direction="" class="w-full py-2 bg-gray-200">
-                <p class="font-medium text-[red]">Tham gia chương trình nhận ngay 199K - 999K hoặc có cơ hội trúng
-                    Iphone
-                    15 ProMax
-                </p>
-            </marquee>
-            <div class="top-vew w-full">
-                <div class="swiper h-[340px] w-full">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide flex items-center justify-center">
-                            <div class="text-center">
-                                <h1 class="text-6xl font-bold text-blue-600">Zalo</h1>
-                            </div>
-                        </div>
-                        <div class="swiper-slide flex items-center justify-center ">
-                            <div class="swiper-slide-main">
-                                <img class="w-full" src="./images/content1.png" alt="">
-                                <div class="swiper-slide-content w-full "></div>
-                                <p class="text-xl text-bold text-center">Gọi video ổn định</p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide flex items-center justify-center ">
-                            <div class="swiper-slide-main">
-                                <img class="w-full" src="./images/content2.png" alt="">
-                                <div class="swiper-slide-content w-full "></div>
-                                <p class="text-xl text-bold text-center">Gọi video ổn định</p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide flex items-center justify-center ">
-                            <div class="swiper-slide-main">
-                                <img class="w-full" src="./images/content3.png" alt="">
-                                <div class="swiper-slide-content w-full "></div>
-                                <p class="text-xl text-bold text-center">Gọi video ổn định</p>
-                            </div>
-                        </div>
-                        <div class="swiper-slide flex items-center justify-center ">
-                            <div class="swiper-slide-main">
-                                <img class="w-full" src="./images/content4.png" alt="">
-                                <div class="swiper-slide-content w-full "></div>
-                                <p class="text-xl text-bold text-center">Gọi video ổn định</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-control absolute w-full">
-                        <div class="swiper-pagination"></div>
-                    </div>
-                </div>
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 inset-x-0 p-4 flex justify-between items-center border-b-[1px]">
+        <div class="flex items-center">
+            <img src="https://via.placeholder.com/32" alt="Logo" class="h-8 w-8">
+            <span class="ml-2 text-xl font-semibold">App Name</span>
+        </div>
+        <button id="menu-button" class="text-gray-700 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor" class="w-8 h-8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+    </header>
 
-            </div>
-            <div class="overflow-x-auto">
-                <table class="table">
-                    <!-- head -->
-                    <thead>
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox" />
-                                </label>
-                            </th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- row 1 -->
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="avatar">
-                                        <div class="mask mask-squircle h-12 w-12">
-                                            <img src="https://img.daisyui.com/tailwind-css-component-profile-2@56w.png"
-                                                alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold">Hart Hagerty</div>
-                                        <div class="text-sm opacity-50">United States</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Zemlak, Daniel and Leannon
-                                <br />
-                                <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
-                            </td>
-                            <td>Purple</td>
-                            <th>
-                                <button class="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        <!-- row 2 -->
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="avatar">
-                                        <div class="mask mask-squircle h-12 w-12">
-                                            <img src="https://img.daisyui.com/tailwind-css-component-profile-3@56w.png"
-                                                alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold">Brice Swyre</div>
-                                        <div class="text-sm opacity-50">China</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Carroll Group
-                                <br />
-                                <span class="badge badge-ghost badge-sm">Tax Accountant</span>
-                            </td>
-                            <td>Red</td>
-                            <th>
-                                <button class="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        <!-- row 3 -->
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="avatar">
-                                        <div class="mask mask-squircle h-12 w-12">
-                                            <img src="https://img.daisyui.com/tailwind-css-component-profile-4@56w.png"
-                                                alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold">Marjy Ferencz</div>
-                                        <div class="text-sm opacity-50">Russia</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Rowe-Schoen
-                                <br />
-                                <span class="badge badge-ghost badge-sm">Office Assistant I</span>
-                            </td>
-                            <td>Crimson</td>
-                            <th>
-                                <button class="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                        <!-- row 4 -->
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" class="checkbox" />
-                                </label>
-                            </th>
-                            <td>
-                                <div class="flex items-center gap-3">
-                                    <div class="avatar">
-                                        <div class="mask mask-squircle h-12 w-12">
-                                            <img src="https://img.daisyui.com/tailwind-css-component-profile-5@56w.png"
-                                                alt="Avatar Tailwind CSS Component" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold">Yancy Tear</div>
-                                        <div class="text-sm opacity-50">Brazil</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                Wyman-Ledner
-                                <br />
-                                <span class="badge badge-ghost badge-sm">Community Outreach Specialist</span>
-                            </td>
-                            <td>Indigo</td>
-                            <th>
-                                <button class="btn btn-ghost btn-xs">details</button>
-                            </th>
-                        </tr>
-                    </tbody>
-                    <!-- foot -->
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-            <nav class="w-full h-[40px] bg-blue-600 static bottom-0"></nav>
+    <!-- Sidebar -->
+    <div id="sidebar" class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg sidebar">
+        <div class="p-4">
+            <h2 class="text-xl font-semibold mb-4">Sidebar Menu</h2>
+            <ul>
+                <li class="mb-2"><a href="#" class="text-gray-700 hover:text-gray-900">Link 1</a></li>
+                <li class="mb-2"><a href="#" class="text-gray-700 hover:text-gray-900">Link 2</a></li>
+                <li class="mb-2"><a href="#" class="text-gray-700 hover:text-gray-900">Link 3</a></li>
+            </ul>
         </div>
     </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black overlay"></div>
+
+    <!-- Content -->
+    <section class="bg-white flex-grow">
+
+    </section>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed bottom-0 inset-x-0 flex justify-around p-2 border-t-[1px]">
+        <button class="flex flex-col items-center text-gray-700 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3 12l2-2m0 0l7-7 7 7M13 5v6a8 8 0 018 8v5h-6v-5a8 8 0 00-8-8V5z" />
+            </svg>
+            <span class="text-sm">Trang chủ</span>
+        </button>
+        <button class="flex flex-col items-center text-gray-700 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M11 17l-2-2m0 0a4 4 0 015.656 0m-5.656 0L5 12m8 2a4 4 0 00-8 0m2 2l-2 2m14-6a4 4 0 00-5.656 0M5 16a4 4 0 015.656 0M9 8v1a4 4 0 004 4h.586l1-1A4 4 0 0012 4H9a4 4 0 00-4 4v1l1 1V8a2 2 0 012-2h2a2 2 0 012 2v2.586l1 1V8a4 4 0 00-4-4H9z" />
+            </svg>
+            <span class="text-sm">Liên hệ</span>
+        </button>
+        <button class="flex flex-col items-center text-gray-700 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+            <span class="text-sm">Tạo mới</span>
+        </button>
+        <button class="flex flex-col items-center text-gray-700 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+            <span class="text-sm">Menu</span>
+        </button>
+    </nav>
+
+    <script>
+        document.getElementById('menu-button').addEventListener('click', function () {
+            document.getElementById('sidebar').classList.toggle('sidebar-open');
+            document.getElementById('overlay').classList.toggle('overlay-visible');
+        });
+
+        document.getElementById('overlay').addEventListener('click', function () {
+            document.getElementById('sidebar').classList.remove('sidebar-open');
+            document.getElementById('overlay').classList.remove('overlay-visible');
+        });
+    </script>
+
 </body>
-
-
-<script type="module">
-    import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
-
-    const swiper = new Swiper('.swiper', {
-        // Optional parameters
-        direction: 'horizontal',
-        loop: true,
-
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-        },
-
-        // Navigation arrows
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-
-        // And if we need scrollbar
-        scrollbar: {
-            // el: '.swiper-scrollbar',
-        },
-    });
-</script>
 
 </html>
