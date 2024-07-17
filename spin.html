@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vòng quay may mắn</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wheel-container {
+            position: relative;
+        }
+
+        .indicator {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 20px solid red;
+            z-index: 1;
+        }
+
+        .wheel {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            transform: rotate(0deg);
+            transition: transform 3s cubic-bezier(0.33, 1, 0.68, 1);
+        }
+
+        .segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            transform-origin: 100% 100%;
+            clip-path: polygon(0 0, 100% 0, 100% 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            text-align: center;
+            line-height: 1.2;
+            color: black;
+            font-weight: bold;
+            border: 1px solid white;
+        }
+
+        .segment:nth-child(1) {
+            transform: rotate(0deg) translateY(-50%);
+        }
+
+        .segment:nth-child(2) {
+            transform: rotate(60deg) translateY(-50%);
+        }
+
+        .segment:nth-child(3) {
+            transform: rotate(120deg) translateY(-50%);
+        }
+
+        .segment:nth-child(4) {
+            transform: rotate(180deg) translateY(-50%);
+        }
+
+        .segment:nth-child(5) {
+            transform: rotate(240deg) translateY(-50%);
+        }
+
+        .segment:nth-child(6) {
+            transform: rotate(300deg) translateY(-50%);
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            color: #000;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-r from-blue-500 to-green-500 flex items-center justify-center min-h-screen">
+    <div class="wheel-container relative flex flex-col items-center">
+        <div class="indicator absolute top-0 transform -translate-y-full">
+            <div
+                class="w-0 h-0 border-l-8 border-r-8 border-b-16 border-l-transparent border-r-transparent border-b-yellow-500">
+            </div>
+        </div>
+        <div class="wheel rounded-full border-8 border-red-500 shadow-lg" id="wheel">
+            <div class="segment bg-yellow-400" data-prize="Quà 1">Quà 1</div>
+            <div class="segment bg-green-400" data-prize="Quà 2">Quà 2</div>
+            <div class="segment bg-blue-400" data-prize="Quà 3">Quà 3</div>
+            <div class="segment bg-red-400" data-prize="Quà 4">Quà 4</div>
+            <div class="segment bg-purple-400" data-prize="Quà 5">Quà 5</div>
+            <div class="segment bg-pink-400" data-prize="Quà 6">Quà 6</div>
+        </div>
+        <button id="spin-button"
+            class="mt-6 bg-red-500 text-white py-2 px-4 rounded-full hover:bg-red-700 transition transform hover:scale-105">Quay</button>
+    </div>
+
+    <div id="modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-lg text-center">
+            <span id="close-button" class="close-button text-gray-500 text-2xl cursor-pointer">&times;</span>
+            <p id="prize-info" class="text-lg font-semibold mt-4"></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('spin-button').addEventListener('click', function () {
+            const wheel = document.getElementById('wheel');
+            const randomDegree = Math.floor(Math.random() * 3600) + 360; // Random degree for multiple spins
+            wheel.style.transform = `rotate(${randomDegree}deg)`;
+
+            setTimeout(() => {
+                const segments = document.querySelectorAll('.segment');
+                const prizeIndex = Math.floor(((randomDegree % 360) / 60) + 0.5) % 6; // Adjust index calculation for segment size
+                const prize = segments[prizeIndex].getAttribute('data-prize');
+                showModal(prize);
+            }, 3000); // Duration of the spin
+        });
+
+        function showModal(prize) {
+            const modal = document.getElementById('modal');
+            const prizeInfo = document.getElementById('prize-info');
+            prizeInfo.textContent = `Bạn đã trúng: ${prize}`;
+            modal.classList.remove('hidden');
+
+            const closeButton = document.getElementById('close-button');
+            closeButton.onclick = function () {
+                modal.classList.add('hidden');
+            }
+
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.classList.add('hidden');
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>
