@@ -1,186 +1,616 @@
 <!DOCTYPE html>
-<html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vòng quay may mắn</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
+      @import url("https://fonts.googleapis.com/css?family=Open+Sans:600,300");
+      *,
+      *::after,
+      *::before {
+        outline: none;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .sidebar {
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 0;
+      }
 
-        .wheel-container {
-            position: relative;
-        }
+      .sidebar-open {
+        transform: translateX(0);
+      }
 
-        .indicator {
-            width: 0;
-            height: 0;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-bottom: 20px solid red;
-            z-index: 1;
-        }
+      .overlay {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 20;
+      }
 
-        .wheel {
-            width: 300px;
-            height: 300px;
-            position: relative;
-            overflow: hidden;
-            transform: rotate(0deg);
-            transition: transform 3s cubic-bezier(0.33, 1, 0.68, 1);
-        }
+      .overlay-visible {
+        opacity: 0.5;
+        visibility: visible;
+      }
 
-        .segment {
-            position: absolute;
-            width: 50%;
-            height: 50%;
-            transform-origin: 100% 100%;
-            clip-path: polygon(0 0, 100% 0, 100% 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 12px;
-            text-align: center;
-            line-height: 1.2;
-            color: black;
-            font-weight: bold;
-            border: 1px solid white;
-        }
+      #modal {
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Overlay */
+      }
 
-        .segment:nth-child(1) {
-            transform: rotate(0deg) translateY(-50%);
-        }
+      #modal .bg-white {
+        /* Modal content styles */
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: lightgray;
+        font-family: "Open sans", sans-serif;
+      }
+      .rule {
+        margin: 0 50px 0 0;
+      }
+      .rule__content {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .rule__color {
+        width: 50px;
+        height: 50px;
+        margin-right: 20px;
+      }
+      .rule .color-1 {
+        background-color: #16a085;
+      }
+      .rule .color-2 {
+        background-color: #2980b9;
+      }
+      .rule .color-3 {
+        background-color: #34495e;
+      }
+      .rule .color-4 {
+        background-color: #f39c12;
+      }
+      .rule .color-5 {
+        background-color: #d35400;
+      }
+      .rule .color-6 {
+        background-color: #c0392b;
+      }
+      .rule__text {
+        flex: 1;
+      }
+      .rule__image {
+        width: 30px;
+        height: 30px;
+        margin-left: 10px;
+      }
+      .wheel {
+        width: 312px;
+        height: 312px;
+        border-radius: 50%;
+        border: solid 6px #fff;
+        box-shadow: 0 4px 9px 0 rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+      .wheel__inner {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        transition: cubic-bezier(0.19, 1, 0.22, 1) 5s;
+      }
+      .wheel__sec {
+        position: absolute;
+        top: 0;
+        left: 62px;
+        width: 0;
+        height: 0;
+        border: solid;
+        border-width: 150px 88px 0;
+        border-color: transparent;
+        transform-origin: 50% 100%;
+      }
+      .wheel__sec:nth-child(1) {
+        border-top-color: #16a085;
+      }
+      .wheel__sec:nth-child(2) {
+        border-top-color: #2980b9;
+        transform: rotate(60deg);
+      }
+      .wheel__sec:nth-child(3) {
+        border-top-color: #34495e;
+        transform: rotate(120deg);
+      }
+      .wheel__sec:nth-child(4) {
+        border-top-color: #d35400;
+        transform: rotate(180deg);
+      }
+      .wheel__sec:nth-child(5) {
+        border-top-color: #f39c12;
+        transform: rotate(240deg);
+      }
+      .wheel__sec:nth-child(6) {
+        border-top-color: #c0392b;
+        transform: rotate(300deg);
+      }
+      .wheel__text {
+        margin: 70px 0 0 70px;
+      }
+      .wheel__arrow {
+        width: 70px;
+        height: 70px;
+        background: #fff;
+        filter: drop-shadow(0px 0px 3px rgb(49, 49, 49));
+        position: absolute;
+        top: 121px;
+        left: 115px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Open sans", sans-serif;
+      }
+      .wheel__arrow::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: solid;
+        border-width: 0 10px 20px;
+        border-color: transparent;
+        border-bottom-color: #fff;
+        top: -15px;
+        left: 25px;
+      }
+      .wheel__button {
+        width: 60px;
+        height: 60px;
+        background-color: lightgray;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: 0.3s;
+        font-weight: 600;
+        font-size: 18px;
+      }
+      .wheel__button:hover {
+        color: #27ae60;
+      }
+      .wheel__button:active {
+        border: solid 3px rgba(0, 0, 0, 0.1);
+        font-size: 15px;
+      }
+      .popup {
+        position: fixed;
+        width: 30vw;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -110%);
+        background: #fff;
+        box-shadow: 0 4px 9px 0 rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 20px;
+        transition: all 0.5s;
+        opacity: 0;
+      }
+      .popup.active {
+        transform: translate(-50%, 0);
+        opacity: 1;
+      }
+      .popup__emotion {
+        color: #f39c12;
+        text-align: center;
+        font-size: 30px;
+        margin: 0 0 25px 0;
+      }
+      .popup__note {
+        text-align: center;
+      }
+      .congratulation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.2);
+        display: none;
+      }
+      .congratulation__container {
+        width: 40vw;
+        padding: 30px;
+        background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .congratulation__close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #c0392b;
+        cursor: pointer;
+        transition: all 0.5s;
+      }
+      .congratulation__close:hover {
+        transform: rotate(360deg);
+      }
+      .congratulation__emotion {
+        color: #f39c12;
+        text-align: center;
+        margin: 0 0 20px 0;
+      }
+      .congratulation__note {
+        text-align: center;
+      }
+      section {
+        z-index: 1;
+      }
+      .wheel__inner {
+        transition: transform 8s cubic-bezier(0.1, 0.7, 0.1, 1);
+      }
+      header,
+      nav {
+        z-index: 200;
+      }
+      .wheel__sec {
+        position: absolute;
+        top: 0;
+        left: 62px;
+        width: 0;
+        height: 0;
+        border: solid;
+        border-width: 150px 88px 0;
+        border-color: transparent;
+        transform-origin: 50% 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-        .segment:nth-child(2) {
-            transform: rotate(60deg) translateY(-50%);
-        }
-
-        .segment:nth-child(3) {
-            transform: rotate(120deg) translateY(-50%);
-        }
-
-        .segment:nth-child(4) {
-            transform: rotate(180deg) translateY(-50%);
-        }
-
-        .segment:nth-child(5) {
-            transform: rotate(240deg) translateY(-50%);
-        }
-
-        .segment:nth-child(6) {
-            transform: rotate(300deg) translateY(-50%);
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .modal-content {
-            background-color: #fff;
-            color: #000;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 400px;
-            text-align: center;
-            border-radius: 10px;
-        }
-
-        .close-button {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close-button:hover,
-        .close-button:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+      .wheel__label {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        font-size: 16px;
+        top: -130px;
+        color: #fff; /* Adjust color as needed */
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: drop-shadow(0px 0px 3px #05050589);
+        transform: rotate(
+          -90deg
+        ); /* Adjust according to the section's rotation */
+        z-index: 100;
+      }
+      .wheel__sec:nth-child(1) > .wheel__label {
+        background-image: url("https://i0.wp.com/tienle.com.vn/wp-content/uploads/2022/11/Mat-sau-10-nghin-Viet-Nam.jpeg?fit=600%2C277&ssl=1");
+      }
+      .wheel__sec:nth-child(2) > .wheel__label {
+        rotate: -90deg;
+        background-image: url("https://hoanggiaxt.vn/wp-content/uploads/2024/06/natural.png");
+      }
+      .wheel__sec:nth-child(3) > .wheel__label {
+        background-image: url("https://baoxaydung.com.vn/stores/news_dataimages/vananh/072016/06/10/100838baoxaydung_image001.jpg");
+      }
+      .wheel__sec:nth-child(6) > .wheel__label {
+        scale: 1.3;
+        background-image: url("https://vinfastnewway.com.vn/wp-content/uploads/2023/08/vf5-1.png");
+      }
+      .wheel__sec:nth-child(4) > .wheel__label {
+        rotate: -90deg;
+        scale: 1.5;
+        background-image: url("https://bizweb.dktcdn.net/thumb/1024x1024/100/386/618/products/rt42cg6584b1sv-1.png?v=1716432334107");
+      }
+      .wheel__sec:nth-child(5) > .wheel__label {
+        background-image: url("https://hondadoanhthu.com.vn/wp-content/uploads/2022/01/Cao-cap-Do-2.png");
+      }
     </style>
-</head>
-
-<body class="bg-gradient-to-r from-blue-500 to-green-500 flex items-center justify-center min-h-screen">
-    <div class="wheel-container relative flex flex-col items-center">
-        <div class="indicator absolute top-0 transform -translate-y-full">
-            <div
-                class="w-0 h-0 border-l-8 border-r-8 border-b-16 border-l-transparent border-r-transparent border-b-yellow-500">
-            </div>
-        </div>
-        <div class="wheel rounded-full border-8 border-red-500 shadow-lg" id="wheel">
-            <div class="segment bg-yellow-400" data-prize="Quà 1">Quà 1</div>
-            <div class="segment bg-green-400" data-prize="Quà 2">Quà 2</div>
-            <div class="segment bg-blue-400" data-prize="Quà 3">Quà 3</div>
-            <div class="segment bg-red-400" data-prize="Quà 4">Quà 4</div>
-            <div class="segment bg-purple-400" data-prize="Quà 5">Quà 5</div>
-            <div class="segment bg-pink-400" data-prize="Quà 6">Quà 6</div>
-        </div>
-        <button id="spin-button"
-            class="mt-6 bg-red-500 text-white py-2 px-4 rounded-full hover:bg-red-700 transition transform hover:scale-105">Quay</button>
+  </head>
+  <body class="bg-gray-100 h-screen flex flex-col justify-between">
+    <header
+      class="bg-white w-full shadow-sm sticky top-0 inset-x-0 p-4 flex justify-between items-center border-b-[1px]"
+    >
+      <div class="flex items-center">
+        <img src="https://via.placeholder.com/32" alt="Logo" class="h-8 w-8" />
+        <span class="ml-2 text-xl font-semibold">App Name</span>
+      </div>
+      <button id="menu-button" class="text-gray-700 focus:outline-none">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          class="w-8 h-8"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4 6h16M4 12h16m-7 6h7"
+          />
+        </svg>
+      </button>
+    </header>
+    <div
+      id="sidebar"
+      class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg sidebar"
+    >
+      <div class="p-4">
+        <h2 class="text-xl font-semibold mb-4">Sidebar Menu</h2>
+        <ul>
+          <li class="mb-2">
+            <a href="#" class="text-gray-700 hover:text-gray-900">Link 1</a>
+          </li>
+          <li class="mb-2">
+            <a href="#" class="text-gray-700 hover:text-gray-900">Link 2</a>
+          </li>
+          <li class="mb-2">
+            <a href="#" class="text-gray-700 hover:text-gray-900">Link 3</a>
+          </li>
+        </ul>
+      </div>
     </div>
-
-    <div id="modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-        <div class="modal-content bg-white p-6 rounded-lg shadow-lg text-center">
-            <span id="close-button" class="close-button text-gray-500 text-2xl cursor-pointer">&times;</span>
-            <p id="prize-info" class="text-lg font-semibold mt-4"></p>
+    <div id="overlay" class="fixed inset-0 bg-black overlay"></div>
+    <section class="bg-white flex-grow flex px-5 py-3 items-center">
+      <div class="wheel">
+        <div class="wheel__inner">
+          <div class="wheel__sec">
+            <div class="wheel__label"></div>
+          </div>
+          <div class="wheel__sec">
+            <div class="wheel__label"></div>
+          </div>
+          <div class="wheel__sec">
+            <div class="wheel__label"></div>
+          </div>
+          <div class="wheel__sec">
+            <div class="wheel__label"></div>
+          </div>
+          <div class="wheel__sec">
+            <div class="wheel__label"></div>
+          </div>
+          <div class="wheel__sec">
+            <div class="wheel__label"></div>
+          </div>
         </div>
-    </div>
+        <div class="wheel__arrow">
+          <button class="wheel__button">QUAY</button>
+        </div>
+      </div>
+      <!-- <div class="rule">
+        <div class="rule__content">
+          <div class="rule__color color-1"></div>
+          <div class="rule__text">1 CĂN NHÀ LẦU 4 TẦNG</div>
+        </div>
+        <div class="rule__content">
+          <div class="rule__color color-2"></div>
+          <div class="rule__text">1 CHUYẾN DU LỊCH MIỀN TÂY</div>
+        </div>
+        <div class="rule__content">
+          <div class="rule__color color-3"></div>
+          <div class="rule__text">1 THẺ CÀO 100K</div>
+        </div>
+        <div class="rule__content">
+          <div class="rule__color color-4"></div>
+          <div class="rule__text">1 THẺ CÀO 200K</div>
+        </div>
+        <div class="rule__content">
+          <div class="rule__color color-5"></div>
+          <div class="rule__text">CHÚC BẠN MAY MẮN LẦN SAU</div>
+        </div>
+        <div class="rule__content">
+          <div class="rule__color color-6"></div>
+          <div class="rule__text">1 CHUYẾN DU LỊCH VŨNG TÀU</div>
+        </div>
+      </div> -->
+      <div class="popup">
+        <div class="popup__container">
+          <div class="popup__emotion">
+            <i class="fas fa-meh"></i>
+          </div>
+          <p class="popup__note"></p>
+        </div>
+      </div>
+      <div class="congratulation w-max-content">
+        <div class="congratulation__container rounded">
+          <p class="congratulation__note font-bold">
+            Chúc mừng bạn đã trúng
+            <br />
+            <span
+              class="congratulation__note__content text-2xl text-red-600"
+            ></span>
+          </p>
+          <a
+            href="checkout.html"
+            class="block text-center w-full mt-3 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+            >Rút Tiền Ngay</a
+          >
+        </div>
+      </div>
+    </section>
+    <nav
+      class="bg-white w-full shadow-md sticky bottom-0 inset-x-0 flex justify-around p-2 border-t-[1px]"
+    >
+      <button
+        class="flex flex-col items-center text-gray-700 focus:outline-none"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3 12l2-2m0 0l7-7 7 7M13 5v6a8 8 0 018 8v5h-6v-5a8 8 0 00-8-8V5z"
+          />
+        </svg>
+        <span class="text-sm">Trang chủ</span>
+      </button>
+      <button
+        class="flex flex-col items-center text-gray-700 focus:outline-none"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M11 17l-2-2m0 0a4 4 0 015.656 0m-5.656 0L5 12m8 2a4 4 0 00-8 0m2 2l-2 2m14-6a4 4 0 00-5.656 0M5 16a4 4 0 015.656 0M9 8v1a4 4 0 004 4h.586l1-1A4 4 0 0012 4H9a4 4 0 00-4 4v1l1 1V8a2 2 0 012-2h2a2 2 0 012 2v2.586l1 1V8a4 4 0 00-4-4H9z"
+          />
+        </svg>
+        <span class="text-sm">Liên hệ</span>
+      </button>
+      <button
+        class="flex flex-col items-center text-gray-700 focus:outline-none"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 4v16m8-8H4"
+          />
+        </svg>
+        <span class="text-sm">Tạo mới</span>
+      </button>
+      <button
+        class="flex flex-col items-center text-gray-700 focus:outline-none"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4 6h16M4 12h16m-7 6h7"
+          />
+        </svg>
+        <span class="text-sm">Menu</span>
+      </button>
+    </nav>
+    <script>
+      $(document).ready(function () {
+        var value = 0;
+        var countClicked = 0;
+        var clicked = false;
+        function getPosition(position) {
+          if (position <= 30) {
+            $(".congratulation__note__content").text("10.000 VNĐ");
+          } else if (position <= 90) {
+            $(".congratulation__note__content").text(" VŨNG TÀU");
+          } else if (position <= 150) {
+            $(".congratulation__note__content").text(
+              "CHÚC BẠN MAY MẮN LẦN SAU"
+            );
+          } else if (position <= 210) {
+            $(".congratulation__note__content").text(
+              "CHÚC MỪNG BẠN TRÚNG ĐƯỢC MỘT THẺ CÀO 200K"
+            );
+          } else if (position <= 270) {
+            $(".congratulation__note__content").text(
+              "CHÚC MỪNG BẠN TRÚNG ĐƯỢC MỘT THẺ CÀO 100K"
+            );
+          } else if (position <= 330) {
+            $(".congratulation__note__content").text(
+              "CHÚC MỪNG BẠN TRÚNG ĐƯỢC MỘT CHUYẾN DU LỊCH MIỀN TÂY"
+            );
+          } else {
+            $(".congratulation__note__content").text(
+              "CHÚC MỪNG BẠN TRÚNG ĐƯỢC MỘT CĂN NHÀ LẦU 4 TẦNG"
+            );
+          }
+          $(".popup").removeClass("active");
+          $(".congratulation").fadeIn();
+          clicked = false;
+          countClicked = 0;
+        }
+        $(".wheel__button").click(function () {
+          if (clicked == true) {
+            $.cookie("key", "true", { expires: 7, path: "/" });
+            countClicked++;
+            if (countClicked <= 2) {
+              $(".popup__note").text("NGỪNG PHÁ ĐI MEN!");
+            } else if (countClicked <= 4)
+              $(".popup__note").text("LÌ QUÁ NGHEN!");
+            else $(".popup__note").text("BÓ TAY, RÁNG PHÁ BANH NÚT NHA!");
+            if (!$(".popup").hasClass("active")) $(".popup").addClass("active");
+          } else {
+            // Quay đến ô thứ 1 (0 độ)
+            let fixedDegree = 720; // 720 độ để quay hai vòng hoàn chỉnh và thêm 0 độ để dừng ở ô đầu tiên
+            value += fixedDegree;
+            // check xem đã quay hay chưa
+            // console.log(fixedDegree % 360);
+            // console.log(value % 360);
+            $(".wheel__inner").css("transform", `rotate(${value}deg)`);
+            setTimeout(() => {
+              getPosition(value % 360);
+            }, 5000);
+          }
+          clicked = true;
+        });
+        // $(".congratulation__close").click(function () {
+        //   $(".congratulation").fadeOut();
+        // });
+        // $(".congratulation").click(function (event) {
+        //   if (event.target != this) return;
+        //   $(this).fadeOut();
+        // });
+      });
+    </script>
 
     <script>
-        document.getElementById('spin-button').addEventListener('click', function () {
-            const wheel = document.getElementById('wheel');
-            const randomDegree = Math.floor(Math.random() * 3600) + 360; // Random degree for multiple spins
-            wheel.style.transform = `rotate(${randomDegree}deg)`;
-
-            setTimeout(() => {
-                const segments = document.querySelectorAll('.segment');
-                const prizeIndex = Math.floor(((randomDegree % 360) / 60) + 0.5) % 6; // Adjust index calculation for segment size
-                const prize = segments[prizeIndex].getAttribute('data-prize');
-                showModal(prize);
-            }, 3000); // Duration of the spin
+      document
+        .getElementById("menu-button")
+        .addEventListener("click", function () {
+          document.getElementById("sidebar").classList.toggle("sidebar-open");
+          document
+            .getElementById("overlay")
+            .classList.toggle("overlay-visible");
         });
 
-        function showModal(prize) {
-            const modal = document.getElementById('modal');
-            const prizeInfo = document.getElementById('prize-info');
-            prizeInfo.textContent = `Bạn đã trúng: ${prize}`;
-            modal.classList.remove('hidden');
-
-            const closeButton = document.getElementById('close-button');
-            closeButton.onclick = function () {
-                modal.classList.add('hidden');
-            }
-
-            window.onclick = function (event) {
-                if (event.target == modal) {
-                    modal.classList.add('hidden');
-                }
-            }
-        }
-
+      document.getElementById("overlay").addEventListener("click", function () {
+        document.getElementById("sidebar").classList.remove("sidebar-open");
+        document.getElementById("overlay").classList.remove("overlay-visible");
+      });
     </script>
-</body>
-
+  </body>
 </html>
