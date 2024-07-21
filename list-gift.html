@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mobile App UI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
       .sidebar {
         transform: translateX(100%);
@@ -88,8 +89,84 @@
 
     <!-- Overlay -->
     <div id="overlay" class="fixed inset-0 bg-black overlay"></div>
+
     <!-- Content -->
-    <section class="bg-white flex-grow"></section>
+    <section class="bg-white flex-grow">
+      <div class="content w-full py-5">
+        <h2 class="text-2xl font-bold mb-4 text-center text-success">
+          Danh sách quà của bạn
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="min-w-full bg-white shadow-md rounded-lg">
+            <thead class="bg-blue-600 text-white">
+              <tr>
+                <th
+                  class="px-6 py-6 text-center text-xs font-medium uppercase tracking-wider"
+                >
+                  STT
+                </th>
+                <th
+                  class="px-6 py-6 text-center text-xs font-medium uppercase tracking-wider"
+                >
+                  Mã đơn
+                </th>
+                <th
+                  class="px-6 py-6 text-center text-xs font-medium uppercase tracking-wider"
+                >
+                  Phần quà
+                </th>
+                <th
+                  class="px-6 py-6 text-center text-xs font-medium uppercase tracking-wider"
+                >
+                  Trạng thái
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <tr class="bg-gray-50">
+                <td class="px-6 py-4 text-center whitespace-nowrap">1</td>
+                <td class="px-6 py-4 text-center whitespace-nowrap">MD12345</td>
+                <td
+                  class="px-6 py-4 text-center whitespace-nowrap flex justify-center"
+                >
+                  <img
+                    class="w-20 h-20 object-cover rounded"
+                    src="https://via.placeholder.com/50"
+                    alt="Phần quà 1"
+                  />
+                </td>
+                <td class="px-6 py-4 text-center whitespace-nowrap">
+                  <span
+                    class="text-green-600 font-semibold border rounded py-2 px-4 hover:bg-blue-500 hover:text-white"
+                    >Đã xử lý</span
+                  >
+                </td>
+              </tr>
+              <tr class="bg-white">
+                <td class="px-6 py-4 text-center whitespace-nowrap">2</td>
+                <td class="px-6 py-4 text-center whitespace-nowrap">MD67890</td>
+                <td
+                  class="px-6 py-4 text-center whitespace-nowrap flex justify-center"
+                >
+                  <img
+                    class="w-20 h-20 object-cover rounded"
+                    src="https://via.placeholder.com/50"
+                    alt="Phần quà 2"
+                  />
+                </td>
+                <td class="px-6 py-4 text-center whitespace-nowrap">
+                  <span
+                    class="text-yellow-600 font-semibold border rounded py-2 px-4 hover:bg-blue-500 hover:text-white"
+                    >Đang xử lý</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
     <!-- Navigation -->
     <nav
       class="bg-white shadow-md fixed bottom-0 inset-x-0 flex justify-around p-2 border-t-[1px]"
@@ -171,6 +248,7 @@
         <span class="text-sm">Menu</span>
       </button>
     </nav>
+
     <script>
       document
         .getElementById("menu-button")
@@ -184,6 +262,30 @@
       document.getElementById("overlay").addEventListener("click", function () {
         document.getElementById("sidebar").classList.remove("sidebar-open");
         document.getElementById("overlay").classList.remove("overlay-visible");
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const modal = document.getElementById("modal");
+        const closeModalButton = document.getElementById("closeModal");
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent form submission
+          showModal(); // Show modal
+        });
+
+        closeModalButton.addEventListener("click", function () {
+          closeModal(); // Close modal when "Hoàn thành" button inside modal is clicked
+        });
+
+        function showModal() {
+          modal.classList.remove("hidden");
+          document.body.classList.add("overflow-hidden"); // Disable scrolling
+        }
+
+        function closeModal() {
+          modal.classList.add("hidden");
+          document.body.classList.remove("overflow-hidden"); // Enable scrolling
+        }
       });
     </script>
   </body>
