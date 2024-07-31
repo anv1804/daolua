@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App with Post</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body class="bg-gray-100 flex flex-col min-h-screen">
+    <!-- Header -->
+    <header
+      class="flex justify-between items-center p-4 bg-blue-600 text-white"
+    >
+      <div class="text-lg font-bold">Logo</div>
+      <button id="menuButton" class="text-lg focus:outline-none">
+        &#9776;
+      </button>
+    </header>
+
+    <!-- Main content -->
+    <main class="flex-grow p-4">
+      <div
+        class="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden"
+      >
+        <div class="flex items-center px-4 py-3">
+          <img
+            class="h-10 w-10 rounded-full"
+            src="https://via.placeholder.com/150"
+            alt="Profile Picture"
+          />
+          <div class="ml-3">
+            <p class="text-sm font-medium text-gray-900">
+              Zalo App <span class="">✅</span>
+            </p>
+            <p class="text-xs text-gray-500">03/04 lúc 21:47</p>
+          </div>
+          <div class="ml-auto">
+            <button class="text-gray-400 hover:text-gray-600">
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 6.75C11.1716 6.75 10.5 6.07843 10.5 5.25C10.5 4.42157 11.1716 3.75 12 3.75C12.8284 3.75 13.5 4.42157 13.5 5.25C13.5 6.07843 12.8284 6.75 12 6.75ZM12 14.25C11.1716 14.25 10.5 13.5784 10.5 12.75C10.5 11.9216 11.1716 11.25 12 11.25C12.8284 11.25 13.5 11.9216 13.5 12.75C13.5 13.5784 12.8284 14.25 12 14.25ZM12 21.75C11.1716 21.75 10.5 21.0784 10.5 20.25C10.5 19.4216 11.1716 18.75 12 18.75C12.8284 18.75 13.5 19.4216 13.5 20.25C13.5 21.0784 12.8284 21.75 12 21.75Z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="px-4 py-2">
+          <p class="text-red-500">...... no cap</p>
+        </div>
+        <img
+          class="w-full"
+          src="https://image.tienphong.vn/w645/Uploaded/2024/pcgycivo/2023_02_11/anh-1-1696.jpg"
+          alt="Post Image"
+        />
+        <div class="px-4 py-2 flex items-center justify-between">
+          <div class="flex items-center">
+            <button
+              class="flex items-center text-gray-500 hover:text-red-500 focus:outline-none"
+            >
+              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                />
+              </svg>
+              <span class="ml-1">Thích</span>
+            </button>
+            <span class="ml-2 text-gray-500">1</span>
+          </div>
+          <button
+            class="flex items-center text-gray-500 hover:text-blue-500 focus:outline-none"
+          >
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M21 6h-2V5c0-2.21-1.79-4-4-4H9C6.79 1 5 2.79 5 5v1H3C1.9 6 1 6.9 1 8v13c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-9 0H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v1h-4zm9 15H3V8h2v2h14V8h2v13z"
+              />
+            </svg>
+            <span class="ml-1">Bình luận</span>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom navigation -->
+    <nav class="fixed bottom-0 w-full bg-white border-t border-gray-200">
+      <div class="flex justify-around">
+        <a
+          href="#"
+          class="flex flex-col items-center py-2 text-gray-500 hover:text-blue-500"
+        >
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 7.01L3.8 18h16.4L12 7.01zM12 2l10 18H2L12 2z"></path>
+          </svg>
+          <span class="text-xs">Trang chủ</span>
+        </a>
+        <a
+          href="#"
+          class="flex flex-col items-center py-2 text-gray-500 hover:text-blue-500"
+        >
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 7.01L3.8 18h16.4L12 7.01zM12 2l10 18H2L12 2z"></path>
+          </svg>
+          <span class="text-xs">Phần quà</span>
+        </a>
+        <a
+          href="#"
+          class="flex flex-col items-center py-2 text-gray-500 hover:text-blue-500"
+        >
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 7.01L3.8 18h16.4L12 7.01zM12 2l10 18H2L12 2z"></path>
+          </svg>
+          <span class="text-xs">User</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div
+      id="sidebar"
+      class="sticky w-vw bottom-0 bg-gray-600 bg-opacity-50 z-40 hidden"
+    >
+      <div class="absolute inset-y-0 right-0 w-64 bg-white shadow-md">
+        <button id="closeSidebar" class="p-4 text-gray-700">Close</button>
+        <!-- Sidebar content -->
+      </div>
+    </div>
+
+    <script>
+      const menuButton = document.getElementById("menuButton");
+      const sidebar = document.getElementById("sidebar");
+      const closeSidebar = document.getElementById("closeSidebar");
+
+      menuButton.addEventListener("click", () => {
+        sidebar.classList.remove("hidden");
+      });
+
+      closeSidebar.addEventListener("click", () => {
+        sidebar.classList.add("hidden");
+      });
+
+      sidebar.addEventListener("click", (e) => {
+        if (e.target === sidebar) {
+          sidebar.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

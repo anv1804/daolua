@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tri Ân Người Dùng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <style>
+      .sidebar {
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 30;
+      }
+
+      .sidebar-open {
+        transform: translateX(0);
+      }
+
+      .overlay {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 20;
+      }
+
+      .overlay-visible {
+        opacity: 0.5;
+        visibility: visible;
+      }
+
+      #modal {
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Overlay */
+      }
+
+      #modal .bg-white {
+        /* Modal content styles */
+      }
+
+      .popup-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 50;
+      }
+
+      .popup {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 90%;
+        max-height: 90%;
+        overflow-y: auto;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+    @stack('style')
+  </head>
+
+  <body class="bg-gray-100 h-dvh flex flex-col justify-between">
+    <!-- Popup -->
+    <div id="popup-overlay" class="popup-overlay hidden">
+      <div class="popup">
+        <h2 class="text-xl font-bold mb-4">Thông báo</h2>
+        <p class="mb-4">
+          Đây là một thông báo quan trọng. Vui lòng đọc kỹ nội dung bên dưới.
+        </p>
+        <div class="mb-4 grid grid-cols-2 gap-2">
+          <a
+            href="https://via.placeholder.com/600"
+            data-lightbox="image-set"
+            data-title="Image 1"
+          >
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Image 1"
+              class="cursor-pointer"
+            />
+          </a>
+          <a
+            href="https://via.placeholder.com/600"
+            data-lightbox="image-set"
+            data-title="Image 2"
+          >
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Image 2"
+              class="cursor-pointer"
+            />
+          </a>
+          <a
+            href="https://via.placeholder.com/600"
+            data-lightbox="image-set"
+            data-title="Image 3"
+          >
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Image 3"
+              class="cursor-pointer"
+            />
+          </a>
+          <a
+            href="https://via.placeholder.com/600"
+            data-lightbox="image-set"
+            data-title="Image 4"
+          >
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Image 4"
+              class="cursor-pointer"
+            />
+          </a>
+        </div>
+        <div class="flex justify-end space-x-2">
+          <button
+            id="dont-show-again"
+            class="bg-red-500 text-white px-4 py-2 rounded"
+          >
+            Không hiển thị lại
+          </button>
+          <button
+            id="close-popup"
+            class="bg-gray-500 text-white px-4 py-2 rounded"
+          >
+            Đóng
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header
+      class="bg-white w-full shadow-sm sticky top-0 inset-x-0 p-5 flex justify-between items-center border-b-[1px]"
+    >
+      <div class="flex items-center">
+        <img
+          src="https://img.freepik.com/free-psd/birthday-colorful-present-box-design_23-2150318126.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1721692800&semt=ais_user"
+          alt="Logo"
+          class="h-[35px] w-[35px]"
+        />
+        <a href="/" class="ml-2 text-xl font-bold">Tri Ân Người Dùng</a>
+      </div>
+      <button id="menu-button" class="text-gray-700 focus:outline-none">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          class="w-8 h-8"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4 6h16M4 12h16m-7 6h7"
+          />
+        </svg>
+      </button>
+    </header>
+
+    <!-- Sidebar -->
+    <div
+      id="sidebar"
+      class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg sidebar"
+    >
+      <div class="p-4">
+        <h2 class="text-xl font-semibold mb-4">Menu</h2>
+        <ul>
+          <li class="mb-2 p-2">
+            <p style="font-weight: bold">
+              Số dư ví: <span style="color: red" class="points"></span>đ
+            </p>
+          </li>
+          <li class="mb-2 p-2">
+            <a
+              href="{{route('money')}}"
+              class="text-gray-700 hover:text-gray-900"
+              >Rút tiền</a
+            >
+          </li>
+          <li class="mb-2 p-2">
+            <a
+              href="{{route('gift')}}"
+              class="text-gray-700 hover:text-gray-900"
+              >Lịch sử rút / nhận quà</a
+            >
+          </li>
+          <li class="mb-2 p-2">
+            <a
+              href="{{route('card-list')}}"
+              class="text-gray-700 hover:text-gray-900"
+              >Thẻ ngân hàng</a
+            >
+          </li>
+          @if(\Illuminate\Support\Facades\Auth::user())
+          <li class="mb-2">
+            <a
+              href="{{route('logout')}}"
+              class="text-gray-700 hover:text-gray-900"
+              >Đăng xuất</a
+            >
+          </li>
+          @endif
+        </ul>
+      </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black overlay"></div>
+
+    <!-- Content -->
+    <section class="bg-white flex-grow">@yield('content')</section>
+
+    <!-- Navigation -->
+    <nav
+      class="bg-white shadow-md fixed bottom-0 inset-x-0 flex justify-around p-2 border-t-[1px]"
+    >
+      <a
+        href="/"
+        class="flex flex-col items-center text-gray-700 focus:outline-none"
+      >
+        <i class="fa-solid fa-house text-2xl"></i>
+        <span class="text-sm">Trang chủ</span>
+      </a>
+      <a
+        href="{{route('top-users')}}"
+        class="flex flex-col items-center text-gray-700 focus:outline-none"
+      >
+        <i class="fa-solid fa-ranking-star text-2xl"></i>
+        <span class="text-sm">Top nhận quà</span>
+      </a>
+      <button
+        class="flex flex-col items-center text-gray-700 focus:outline-none"
+      >
+        <i class="fa-solid fa-user text-2xl"></i>
+        <span class="text-sm">Tôi</span>
+      </button>
+    </nav>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script>
+      var pointsDom = document.querySelector(".points");
+      if (!localStorage.getItem("total_points")) {
+        localStorage.setItem("total_points", 0);
+      }
+      pointsDom.innerHTML = localStorage.getItem("total_points");
+
+      document
+        .getElementById("menu-button")
+        .addEventListener("click", function () {
+          document.getElementById("sidebar").classList.toggle("sidebar-open");
+          document
+            .getElementById("overlay")
+            .classList.toggle("overlay-visible");
+        });
+
+      document.getElementById("overlay").addEventListener("click", function () {
+        document.getElementById("sidebar").classList.remove("sidebar-open");
+        document.getElementById("overlay").classList.remove("overlay-visible");
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const popupOverlay = document.getElementById("popup-overlay");
+        const closePopupButton = document.getElementById("close-popup");
+        const dontShowAgainButton = document.getElementById("dont-show-again");
+
+        if (!localStorage.getItem("hidePopup")) {
+          popupOverlay.classList.remove("hidden");
+        }
+
+        closePopupButton.addEventListener("click", function () {
+          popupOverlay.classList.add("hidden");
+        });
+
+        dontShowAgainButton.addEventListener("click", function () {
+          localStorage.setItem("hidePopup", "true");
+          popupOverlay.classList.add("hidden");
+        });
+
+        const menuButton = document.getElementById("menu-button");
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+
+        menuButton.addEventListener("click", function () {
+          sidebar.classList.toggle("sidebar-open");
+          overlay.classList.toggle("overlay-visible");
+        });
+
+        overlay.addEventListener("click", function () {
+          sidebar.classList.remove("sidebar-open");
+          overlay.classList.remove("overlay-visible");
+        });
+      });
+      $(document).ready(function () {
+        var $imageGrid = $("#image-grid");
+        var imageUrls = [
+          "/mnt/data/z5662060287621_aebca3a8c4dbc23f0406047b32f7a059.jpg",
+          "https://via.placeholder.com/800x600",
+          "https://via.placeholder.com/800x600",
+          "https://via.placeholder.com/800x600",
+          "https://via.placeholder.com/800x600",
+        ];
+        var displayedImages = imageUrls.slice(0, 4);
+        var hiddenImageCount = imageUrls.length - displayedImages.length;
+
+        displayedImages.forEach(function (url, index) {
+          var overlayText =
+            index === 3 && hiddenImageCount > 0 ? `+${hiddenImageCount}` : "";
+          $imageGrid.append(`
+                    <a href="${url}" data-lightbox="post-images" class="${overlayText ? "overlay" : ""}" data-overlay="${overlayText}">
+                        <img class="w-full" src="${url}" alt="Post Image">
+                    </a>
+                `);
+        });
+
+        if (displayedImages.length === 2) {
+          $imageGrid.addClass("grid-2");
+        } else if (displayedImages.length === 3) {
+          $imageGrid.addClass("grid-3");
+        } else if (displayedImages.length === 4) {
+          $imageGrid.addClass("grid-4");
+        }
+
+        $("#menuButton").click(function () {
+          $("#sidebar").removeClass("hidden");
+          $("#overlay").removeClass("hidden");
+        });
+
+        $("#closeSidebar, #overlay").click(function () {
+          $("#sidebar").addClass("hidden");
+          $("#overlay").addClass("hidden");
+        });
+      });
+    </script>
+  </body>
+</html>

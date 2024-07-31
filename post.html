@@ -50,16 +50,6 @@
         align-items: center;
         font-size: 24px;
       }
-      .grid-container img {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-        aspect-ratio: 1;
-      }
-      .lb-image {
-        max-width: 800px !important;
-        max-height: 600px !important;
-      }
     </style>
   </head>
   <body class="bg-gray-100">
@@ -143,29 +133,41 @@
 
       <!-- Post Actions -->
       <div class="flex items-center mt-4">
-        <div class="px-4 py-2 flex items-center">
-          <button
-            class="flex items-center text-gray-500 hover:text-red-500 focus:outline-none"
+        <button class="flex items-center text-gray-500 hover:text-red-600">
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-              <path
-                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-              />
-            </svg>
-            <span class="ml-1">Thích</span>
-          </button>
-          <span class="ml-2 text-gray-500">1</span>
-          <button
-            class="ml-auto flex items-center text-gray-500 hover:text-blue-500 focus:outline-none"
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 13l4 4L19 7"
+            ></path>
+          </svg>
+          <span class="ml-2">1</span>
+        </button>
+        <button
+          class="ml-4 flex items-center text-gray-500 hover:text-blue-600"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-              <path
-                d="M21 6h-2V5c0-2.21-1.79-4-4-4H9C6.79 1 5 2.79 5 5v1H3C1.9 6 1 6.9 1 8v13c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-9 0H7V5c0-1.1.9-2 2-2h6c1.1 0 2 .9 2 2v1h-4zm9 15H3V8h2v2h14V8h2v13z"
-              />
-            </svg>
-            <span class="ml-1">Bình luận</span>
-          </button>
-        </div>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 10h.01M12 10h.01M16 10h.01M9 16h6M5 21h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z"
+            ></path>
+          </svg>
+        </button>
       </div>
     </div>
 
@@ -190,7 +192,7 @@
             index === 3 && hiddenImageCount > 0 ? `+${hiddenImageCount}` : "";
           $imageGrid.append(`
                     <a href="${url}" data-lightbox="post-images" class="${overlayText ? "overlay" : ""}" data-overlay="${overlayText}">
-                        <img class="w-full h-full object-cover" src="${url}" alt="Post Image">
+                        <img class="w-full" src="${url}" alt="Post Image">
                     </a>
                 `);
         });
